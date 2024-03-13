@@ -1,18 +1,75 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title>Welcome</title>
-  <style type="text/css">
-  </style>
+    <title>Dynamic Iframe Generator with Titles</title>
+    <style>
+        .iframe-container {
+            display: none;
+        }
+
+        .iframe-container.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-  <p>3.11 Sammy 追逐游戏</p>
-  <iframe src="https://turbowarp.org/981701072/embed" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
-  <p>3.11 帆帆 追逐游戏</p>
-  <iframe src="https://turbowarp.org/981703546/embed" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
-  <p>3.11 蔡卓尔 追逐游戏</p>
-  <iframe src="https://turbowarp.org/981703874/embed" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
+<select id="iframeSelector"></select>
+
+<div id="iframeArea"></div>
+
+<script>
+    // List of objects, each with a title and a projectid
+    var items = [
+        { title: "3.11 Sammy 追逐游戏", projectid: "981701072" },
+        { title: "3.11 帆帆 追逐游戏", projectid: "981703546" },
+        { title: "3.11 蔡卓尔 追逐游戏", projectid: "981703874" }
+    ];
+
+    // Function to dynamically create the iframe and its container
+    function createIframe(item, index) {
+        var iframeContainer = document.createElement('div');
+        iframeContainer.id = 'iframe' + index;
+        iframeContainer.className = 'iframe-container';
+
+        var iframe = document.createElement('iframe');
+        iframe.src = `https://turbowarp.org/${item.projectid}/embed`;
+        iframe.width = "482";
+        iframe.height = "412";
+        iframe.allow="fullscreen";
+
+        iframeContainer.appendChild(iframe);
+        document.getElementById('iframeArea').appendChild(iframeContainer);
+
+        // Add option to the selector with the title
+        var option = document.createElement('option');
+        option.value = iframeContainer.id;
+        option.textContent = item.title;
+        document.getElementById('iframeSelector').appendChild(option);
+    }
+
+    // Initialize iframes from the items list
+    items.forEach(createIframe);
+
+    // Event listener for the iframe selector
+    document.getElementById('iframeSelector').addEventListener('change', function() {
+        // Hide all iframes
+        document.querySelectorAll('.iframe-container').forEach(function(iframe) {
+            iframe.classList.remove('active');
+        });
+
+        // Show the selected iframe
+        var selectedIframeID = this.value;
+        var selectedIframe = document.getElementById(selectedIframeID);
+        if (selectedIframe) {
+            selectedIframe.classList.add('active');
+        }
+    });
+
+    // Optionally, show the first iframe by default
+    document.getElementById('iframeSelector').value = 'iframe0'; // Set the selector to the first option
+    document.getElementById('iframe0').classList.add('active'); // Show the first iframe
+</script>
+
 </body>
 </html>
