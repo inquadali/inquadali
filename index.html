@@ -1,75 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dynamic Iframe Generator with Titles</title>
-    <style>
-        .iframe-container {
-            display: none;
-        }
-
-        .iframe-container.active {
-            display: block;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<select id="iframeSelector"></select>
-
-<div id="iframeArea"></div>
-
-<script>
-    // List of objects, each with a title and a projectid
-    var items = [
-        { title: "3.11 Sammy 追逐游戏", projectid: "981701072" },
-        { title: "3.11 帆帆 追逐游戏", projectid: "981703546" },
-        { title: "3.11 蔡卓尔 追逐游戏", projectid: "981703874" }
-    ];
-
-    // Function to dynamically create the iframe and its container
-    function createIframe(item, index) {
-        var iframeContainer = document.createElement('div');
-        iframeContainer.id = 'iframe' + index;
-        iframeContainer.className = 'iframe-container';
-
-        var iframe = document.createElement('iframe');
-        iframe.src = `https://turbowarp.org/${item.projectid}/embed`;
-        iframe.width = "482";
-        iframe.height = "412";
-        iframe.allow="fullscreen";
-
-        iframeContainer.appendChild(iframe);
-        document.getElementById('iframeArea').appendChild(iframeContainer);
-
-        // Add option to the selector with the title
-        var option = document.createElement('option');
-        option.value = iframeContainer.id;
-        option.textContent = item.title;
-        document.getElementById('iframeSelector').appendChild(option);
-    }
-
-    // Initialize iframes from the items list
-    items.forEach(createIframe);
-
-    // Event listener for the iframe selector
-    document.getElementById('iframeSelector').addEventListener('change', function() {
-        // Hide all iframes
-        document.querySelectorAll('.iframe-container').forEach(function(iframe) {
-            iframe.classList.remove('active');
-        });
-
-        // Show the selected iframe
-        var selectedIframeID = this.value;
-        var selectedIframe = document.getElementById(selectedIframeID);
-        if (selectedIframe) {
-            selectedIframe.classList.add('active');
-        }
-    });
-
-    // Optionally, show the first iframe by default
-    document.getElementById('iframeSelector').value = 'iframe0'; // Set the selector to the first option
-    document.getElementById('iframe0').classList.add('active'); // Show the first iframe
-</script>
-
+    <div class="gallery-container">
+        <h1>学生作品目录</h1>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <a href="https://turbowarp.org/embed?project_url=inquadali.github.io/sb3s/3.11-Sammy.sb3">
+                    <img src="images/3.11-Sammy.png">
+                    <p>3.11 Sammy 追逐游戏</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <img src="path/to/image2.jpg" alt="Image 2">
+            </div>
+            <!-- Add more items here -->
+        </div>
+    </div>
 </body>
 </html>
