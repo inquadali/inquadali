@@ -17,6 +17,17 @@ body {
     color: #333;
 }
 
+.gallery-section {
+    margin-bottom: 50px;
+}
+
+.gallery-section h2 {
+    margin-bottom: 20px;
+    color: #555;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -34,9 +45,22 @@ body {
     display: block;
 }
 
+/* Ensure single item takes only half the width */
+.gallery-grid.single-item {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.gallery-grid.single-item .gallery-item {
+    width: 50%;
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
     .gallery-container {
         width: 95%;
+    }
+    .gallery-grid.single-item .gallery-item {
+        width: 100%;
     }
 }
